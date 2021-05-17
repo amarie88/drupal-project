@@ -1,1 +1,1 @@
-# drupal-recommended-project
+# Drupal project

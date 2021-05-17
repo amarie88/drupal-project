@@ -34,6 +34,7 @@ cache: &global_cache
   cache:
     <<: *global_cache
     policy: pull
+  when: manual
   allow_failure: true
 
 ################################################################################
@@ -56,10 +57,8 @@ php:composer:
 
 php:code_sniffer:
   extends: .test
-  when: manual
   script: vendor/bin/robo $ROBO_CLI_OPS drupal-coding:phpcs
 
 drupal:check:
   extends: .test
-  when: manual
   script: vendor/bin/robo $ROBO_CLI_OPS drupal-coding:check
