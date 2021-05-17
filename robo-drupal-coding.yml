@@ -1,0 +1,36 @@
+drupal:
+  drupal_check:
+    option: deprecations
+    format: table
+    exclude_dir:
+      - node_modules
+      - vendor
+    paths:
+      - web/modules/custom
+php:
+  code_sniffer:
+    report:
+      - full
+      - summary
+    standard:
+      - Drupal
+      - DrupalPractice
+    extensions:
+      - php
+      - module
+      - inc
+      - install
+      - test
+      - profile
+      - theme
+      - css
+      - info
+      - txt
+      - md
+      - yml
+    ignore:
+      - node_modules
+      - vendor
+      - tests
+    paths:
+      - web/modules/custom
