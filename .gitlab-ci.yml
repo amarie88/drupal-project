@@ -1,0 +1,65 @@
+################################################################################
+# Gitlab CI.
+################################################################################
+
+################################################################################
+# Cache strategy.
+################################################################################
+
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+    - web/core
+    - web/libraries
+    - web/modules/contrib/
+    - web/themes/contrib/
+
+################################################################################
+# Templates.
+################################################################################
+
+.php:
+  image: wodby/drupal-php:7.4-dev-4.24.9
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  variables:
+    COMPOSER_CLI_OPTS: "--no-progress --optimize-autoloader"
+    ROBO_CLI_OPS: "--no-interaction"
+
+.test:
+  extends: .php
+  stage: test
+  cache:
+    <<: *global_cache
+    policy: pull
+  allow_failure: true
+
+################################################################################
+# Stages.
+################################################################################
+
+stages:
+  - build
+  - test
+
+################################################################################
+# Jobs.
+################################################################################
+
+php:composer:
+  extends: .php
+  stage: build
+  script:
+    - composer $COMPOSER_CLI_OPTS install
+
+php:code_sniffer:
+  extends: .test
+  when: manual
+  script: vendor/bin/robo $ROBO_CLI_OPS drupal-coding:phpcs
+
+drupal:check:
+  extends: .test
+  when: manual
+  script: vendor/bin/robo $ROBO_CLI_OPS drupal-coding:check
