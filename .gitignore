@@ -43,3 +43,4 @@ node_modules
 /web/.csslintrc
 /web/.eslintignore
 /web/.eslintrc.json
+/web/.gitignore
