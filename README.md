@@ -17,5 +17,5 @@ This package is not installable via Composer 1.x, please make sure you upgrade t
 
 Create a new project:
 ```
-composer create-project "amarie88/drupal-project:9.x-dev" [SITE]
+composer create-project "amarie88/drupal-project:10.x-dev" [SITE]
 ```
